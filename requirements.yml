@@ -1,0 +1,7 @@
+roles:
+  - name: chrony
+    src: ./roles/chrony
+  - name: nginx
+    src: ./roles/nginx
+  - name: postgresql
+    src: ./roles/postgresql

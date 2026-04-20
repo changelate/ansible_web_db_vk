@@ -1,0 +1,24 @@
+---
+- name: Install PostgreSQL 13.23 specific package
+  ansible.builtin.dnf:
+    name: "postgresql13-server-13.23"
+    state: present
+  when: ansible_os_family == "RedHat"
+  tags: [postgresql, install]
+
+- name: Deploy pg_hba.conf with required ACL (static file)
+  ansible.builtin.copy:
+    src: pg_hba.conf
+    dest: "{{ postgresql_hba_dest }}"
+    owner: postgres
+    group: postgres
+    mode: "0600"
+  notify: Reload postgresql
+  tags: [postgresql, config]
+
+- name: Ensure PostgreSQL service is enabled and running
+  ansible.builtin.service:
+    name: "{{ postgresql_service_name }}"
+    state: started
+    enabled: true
+  tags: [postgresql, service]

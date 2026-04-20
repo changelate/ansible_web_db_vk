@@ -1,0 +1,14 @@
+---
+- name: Install chrony
+  ansible.builtin.dnf:
+    name: chrony
+    state: present
+  when: ansible_os_family == "RedHat"
+  tags: [chrony, install]
+
+- name: Chrony is enabled and running
+  ansible.builtin.service:
+    name: chronyd
+    state: started
+    enabled: true
+  tags: [chrony, service]

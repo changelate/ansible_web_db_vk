@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App Server</title>
+</head>
+<body>
+    <h1>Application Server</h1>
+    <p>Service is running.</p>
+    <hr>
+    <p><strong>Hostname:</strong> {{ ansible_hostname | default('unknown') }}</p>
+    <p><strong>IP Address:</strong> {{ ansible_default_ipv4.address | default('127.0.0.1') }}</p>
+</body>
+</html>

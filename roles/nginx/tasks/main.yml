@@ -1,0 +1,24 @@
+---
+- name: Install nginx package
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+  when: ansible_os_family == "RedHat"
+  tags: [nginx, install]
+
+- name: Deploy index.html 
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /usr/share/nginx/html/index.html
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload nginx
+  tags: [nginx, config]
+
+- name: Enginx service is enabled and running
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+  tags: [nginx, service]
